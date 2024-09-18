@@ -1,6 +1,13 @@
 ---
 - hosts: all
   become: true
+
+  vars:
+    MOTD: This MOTD is generated through a variable.
+    newuser:
+      user: newuserPrelimExam
+      state: 
+
   tasks:
 
   - name: install python3
@@ -26,3 +33,14 @@
   - name: install MariaDB
     apt:
       name: mariadb-server
+
+  - name: Message of the Day (without variable input)
+    debug:
+      msg: "Ansible Managed node by qcchavez"
+
+  - name: Message of the Day (with variable input)
+    debug:
+      msg: "{{ MOTD }}"
+
+  - name: Creating new user
+    shell: {{ newuser }}
